@@ -1,0 +1,4 @@
+title: Provider test
+sections:
+  - type: hero
+    heading: Hello from the GitHub provider
