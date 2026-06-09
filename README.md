@@ -1,5 +1,8 @@
 # VibeCheck
 
+[![build](https://github.com/EpleCheck/vibecheck/actions/workflows/build.yml/badge.svg)](https://github.com/EpleCheck/vibecheck/actions/workflows/build.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 **The CMS you talk to.** A git-backed, schema-safe, headless CMS you edit by
 chatting with an AI agent. You bring the *vibe* — a sentence to the agent — it
 does the *check*: validates against a schema, commits to your repo, and your host
