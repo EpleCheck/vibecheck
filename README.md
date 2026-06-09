@@ -85,11 +85,24 @@ that commit content into your repo. Configure it via `apps/mcp/.env`:
 Publish modes on every write tool: `merge_request` (default — opens a PR for
 review) or `direct` (commit to the default branch; your host deploys on push).
 
+**Run it** — locally (`npm start -w @vibecheck/mcp`), or with Docker:
+
+```bash
+cp apps/mcp/.env.example apps/mcp/.env   # fill in token + repo
+docker compose up -d --build             # or pull the prebuilt image:
+# docker pull ghcr.io/eplecheck/vibecheck-mcp:latest
+```
+
+It listens on `:8787` (`POST /mcp`); add it to Claude as an MCP connector with
+`Authorization: Bearer <MCP_AUTH_TOKEN>`.
+
 ## CI
 
-`.github/workflows/build.yml` runs `npm run build` on every push/PR. Because the
-site build validates every page against the schema, **a green build means all
-content is valid** — your safety net before Vercel deploys.
+- `build.yml` runs `npm run build` on every push/PR — because the site build
+  validates every page against the schema, **a green build means all content is
+  valid**.
+- `docker.yml` builds the MCP image and publishes it to
+  `ghcr.io/eplecheck/vibecheck-mcp`.
 
 ## License
 
