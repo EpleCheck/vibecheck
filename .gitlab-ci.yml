@@ -1,0 +1,22 @@
+# GitLab CI for the VibeCheck monorepo — validates that the whole workspace
+# builds: @vibecheck/schema, the site (which runs every page through the schema,
+# so a green build == all content is valid), and the MCP typecheck.
+#
+# The public GitHub mirror uses .github/workflows/build.yml instead.
+stages:
+  - build
+
+build:
+  stage: build
+  image: node:22
+  tags:
+    - eplecheck
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .npm/
+  script:
+    - npm ci --cache .npm --prefer-offline
+    - npm run build # build:schema -> build:site (validates content) -> typecheck:mcp
+  rules:
+    - if: '$CI_COMMIT_BRANCH'
