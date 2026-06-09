@@ -4,7 +4,9 @@
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 **The CMS you talk to.** A git-backed, schema-safe, headless CMS you edit by
-chatting with an AI agent. You bring the *vibe* — a sentence to the agent — it
+chatting with an AI agent.
+
+🔗 **[Live demo](https://eplecheck.github.io/vibecheck/)** — itself built with VibeCheck. You bring the *vibe* — a sentence to the agent — it
 does the *check*: validates against a schema, commits to your repo, and your host
 redeploys. Content is typed data, not markup, so an agent **can't break the
 build**.
