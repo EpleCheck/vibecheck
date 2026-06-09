@@ -8,6 +8,8 @@
 #   Authorization: Bearer <MCP_AUTH_TOKEN>
 services:
   mcp:
+    # Build locally, or skip the build and pull the published image instead:
+    #   image: ghcr.io/eplecheck/vibecheck-mcp:latest   (then remove `build:`)
     build:
       context: .
       dockerfile: apps/mcp/Dockerfile
