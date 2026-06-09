@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { withBase } from '../lib/url';
 import '../styles/styles.css';
 
 interface Props {
@@ -25,7 +26,7 @@ const breadcrumbSchema =
           '@type': 'ListItem',
           position: i + 1,
           name: c.name,
-          item: new URL(c.url, Astro.site).href,
+          item: new URL(withBase(c.url) ?? c.url, Astro.site).href,
         })),
       }
     : null;
@@ -47,7 +48,7 @@ const breadcrumbSchema =
     <meta name="twitter:title" content={pageTitle} />
     {metaDescription && <meta name="twitter:description" content={metaDescription} />}
     {seo?.ogImage && <meta name="twitter:image" content={seo.ogImage} />}
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
     {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
   </head>
   <body>
@@ -58,7 +59,7 @@ const breadcrumbSchema =
           <ol>
             {breadcrumbs.map((c, i) => (
               <li>
-                {i < breadcrumbs.length - 1 ? <a href={c.url}>{c.name}</a> : <span aria-current="page">{c.name}</span>}
+                {i < breadcrumbs.length - 1 ? <a href={withBase(c.url)}>{c.name}</a> : <span aria-current="page">{c.name}</span>}
               </li>
             ))}
           </ol>

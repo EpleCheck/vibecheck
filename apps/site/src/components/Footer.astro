@@ -1,14 +1,15 @@
 ---
 // Global footer. Edit the link columns to match your site.
+import { withBase } from '../lib/url';
 const year = new Date().getFullYear();
 const product = [
   { label: 'Home', href: '/' },
   { label: 'Pricing', href: '/pricing/' },
-];
+].map((l) => ({ ...l, href: withBase(l.href) }));
 const company = [
   { label: 'About', href: '/about/' },
   { label: 'Contact', href: '/contact/' },
-];
+].map((l) => ({ ...l, href: withBase(l.href) }));
 ---
 <footer class="site-footer">
   <div class="foot-top">

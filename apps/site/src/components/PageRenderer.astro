@@ -8,6 +8,7 @@
 import Button from './ui/Button.astro';
 import Card from './ui/Card.astro';
 import PricingCard from './ui/PricingCard.astro';
+import { withBase } from '../lib/url';
 
 type Section = Record<string, any> & { type: string };
 interface Props { sections: Section[] }
@@ -19,7 +20,7 @@ const { sections } = Astro.props;
       <section class="sec hero">
         <h1>{s.heading}</h1>
         {s.subheading && <p class="lead">{s.subheading}</p>}
-        {s.ctaLabel && s.ctaHref && <p><Button href={s.ctaHref} size="lg">{s.ctaLabel}</Button></p>}
+        {s.ctaLabel && s.ctaHref && <p><Button href={withBase(s.ctaHref)} size="lg">{s.ctaLabel}</Button></p>}
       </section>
     );
   }
@@ -29,7 +30,7 @@ const { sections } = Astro.props;
         {s.heading && <h2>{s.heading}</h2>}
         <div class="grid">
           {s.items.map((it: any) => (
-            <Card title={it.title} body={it.body} href={it.href} image={it.image} />
+            <Card title={it.title} body={it.body} href={withBase(it.href)} image={it.image} />
           ))}
         </div>
       </section>
@@ -49,7 +50,7 @@ const { sections } = Astro.props;
               highlighted={p.highlighted}
             >
               {p.ctaLabel && p.ctaHref && (
-                <Button href={p.ctaHref} variant={p.highlighted ? 'primary' : 'secondary'} fullWidth>{p.ctaLabel}</Button>
+                <Button href={withBase(p.ctaHref)} variant={p.highlighted ? 'primary' : 'secondary'} fullWidth>{p.ctaLabel}</Button>
               )}
             </PricingCard>
           ))}
@@ -62,7 +63,7 @@ const { sections } = Astro.props;
       <section class="sec cta">
         <h2>{s.heading}</h2>
         {s.body && <p>{s.body}</p>}
-        <p><Button href={s.ctaHref} size="lg">{s.ctaLabel}</Button></p>
+        <p><Button href={withBase(s.ctaHref)} size="lg">{s.ctaLabel}</Button></p>
       </section>
     );
   }
