@@ -1,0 +1,8 @@
+# Managed by VibeCheck. Structure must match the @vibecheck/schema content
+# contract (mirrored by the site at src/content.config.ts).
+title: Created by the running MCP
+draft: false
+sections:
+  - type: hero
+    heading: Hello from the MCP
+    subheading: This page was created by calling the running VibeCheck MCP server.
