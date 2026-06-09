@@ -1,0 +1,21 @@
+name: build
+
+# Validation gate. The site build runs every page through the @vibecheck/schema
+# content collection, so "build passes" == "all content is valid". Catches a bad
+# edit in a PR before your host (Vercel) deploys it.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build # build:schema -> build:site (validates content) -> typecheck:mcp
