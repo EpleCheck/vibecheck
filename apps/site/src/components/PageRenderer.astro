@@ -9,6 +9,7 @@ import Button from './ui/Button.astro';
 import Card from './ui/Card.astro';
 import PricingCard from './ui/PricingCard.astro';
 import { withBase } from '../lib/url';
+import { resolveIntegration } from '../lib/integrations';
 
 type Section = Record<string, any> & { type: string };
 interface Props { sections: Section[] }
@@ -164,11 +165,15 @@ const { sections } = Astro.props;
     );
   }
   if (s.type === 'form') {
+    // Resolve the named integration to a real endpoint at build time. An unknown
+    // name throws here, failing the build — content can't reference a submission
+    // target that nobody registered.
+    const integration = resolveIntegration(s.integration);
     return (
       <section class="sec form">
         <h2>{s.heading}</h2>
         {s.body && <p>{s.body}</p>}
-        <form method="POST" action={s.action}>
+        <form method={integration.method ?? 'POST'} action={integration.endpoint}>
           {s.successHref && <input type="hidden" name="_next" value={s.successHref} />}
           {s.subject && <input type="hidden" name="_subject" value={s.subject} />}
           {/* Honeypot: bots fill this hidden field; real users never see it. */}
