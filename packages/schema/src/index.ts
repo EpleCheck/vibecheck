@@ -73,6 +73,21 @@ const richtext = z.object({
   html: z.string(),
 });
 
+const faq = z.object({
+  type: z.literal('faq'),
+  heading: z.string().optional(),
+  items: z
+    .array(
+      z.object({
+        question: z.string(),
+        // Plain text, not HTML — the renderer emits it as both visible copy and
+        // FAQPage JSON-LD, so it must stay markup-free to be safe in both.
+        answer: z.string(),
+      }),
+    )
+    .default([]),
+});
+
 const form = z.object({
   type: z.literal('form'),
   heading: z.string(),
@@ -100,6 +115,7 @@ export const sectionSchema = z.discriminatedUnion('type', [
   pricing,
   cta,
   richtext,
+  faq,
   form,
 ]);
 

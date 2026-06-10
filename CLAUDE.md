@@ -34,19 +34,33 @@ npm run dev -w site    # local preview at http://localhost:4321
 ## Editing content (the main task)
 
 Pages are YAML in `apps/site/src/content/pages/**/*.yaml`. A page is a `title` plus a
-list of typed `sections`: `hero | features | pricing | cta | richtext | form`. Only
-`richtext` carries raw HTML.
+list of typed `sections`: `hero | features | pricing | cta | richtext | faq | form`.
+Only `richtext` carries raw HTML.
 
 - Add/edit a page → edit the YAML directly. `home.yaml` is the front page.
 - A nested file `a/b.yaml` becomes `/a/b/` and gets an automatic breadcrumb.
 - **Always run `npm run build` before committing** — it validates every page against
   the schema. A green build means the content is valid (this is exactly what CI runs).
 
+### Reach for a typed section before `richtext`
+
+`richtext` is the escape hatch, not the default — raw HTML is the one thing that can
+break the build, so prefer a typed section whenever one fits:
+
+- **FAQ** → use the `faq` section (`faq.yaml` is the worked example). It emits
+  `FAQPage` JSON-LD for SEO; faking one with `features` or `richtext` does not.
+- **Feature/service grid, testimonials, team** → `features` (title + body, optional
+  image/href). Don't hand-write card markup in `richtext`.
+- **Plans/tiers** → `pricing`. **Lead-in + button** → `hero` or `cta`.
+
+Only fall back to `richtext` for genuinely freeform prose that no typed section models.
+
 ## Adding a section type
 
 Update **both** `packages/schema/src/index.ts` (the zod union) **and** the renderer in
 `apps/site/src/components/PageRenderer.astro`. The MCP picks up the schema change
-automatically.
+automatically. The `faq` section is a minimal worked example of this two-file change
+(schema variant + renderer branch, plus `FAQPage` JSON-LD in the renderer).
 
 ## Conventions
 
