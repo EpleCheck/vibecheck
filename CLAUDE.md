@@ -70,6 +70,22 @@ Update **both** `packages/schema/src/index.ts` (the zod union) **and** the rende
 automatically. The `faq` section is a minimal worked example of this two-file change
 (schema variant + renderer branch, plus `FAQPage` JSON-LD in the renderer).
 
+## Integrations (forms that submit somewhere)
+
+A `form` section references an **integration by name** (`integration: contact`), never
+a raw URL. The registry in `apps/site/src/lib/integrations.ts` is the single place that
+maps a name to a real endpoint (from env, with local defaults), so content never carries
+an endpoint or secret. `resolveIntegration()` runs at build time and **fails the build on
+an unknown name** — the same schema-safe guarantee as an unknown section type.
+
+- Add an integration → one entry in `integrations.ts` + the matching env var (see
+  `apps/site/.env.example`). `contact` and `newsletter` are the worked examples
+  (`contact.yaml`).
+- Fulfillment is provider-agnostic: point an endpoint at a hosted form service
+  (Formspree/Buttondown/Brevo) or your own function. The page doesn't care.
+- Endpoints are public (they land in the form `action`); real secrets live in the
+  receiving service, never in content or the registry.
+
 ## Conventions
 
 - Content is data, not markup — no HTML in pages except inside `richtext`.

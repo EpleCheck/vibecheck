@@ -128,7 +128,12 @@ const form = z.object({
   type: z.literal('form'),
   heading: z.string(),
   body: z.string().optional(),
-  action: z.string(),
+  // Named integration, not a raw URL. The renderer resolves the name to a real
+  // endpoint via the registry at build time and FAILS THE BUILD on an unknown
+  // name — so content can reference where a submission goes without ever
+  // carrying the endpoint (or its secrets). This is the Tier-2 spine: a page
+  // declares a capability by name; the wiring lives in config, not content.
+  integration: z.string(),
   subject: z.string().optional(),
   successHref: z.string().optional(),
   submitLabel: z.string().default('Send'),
