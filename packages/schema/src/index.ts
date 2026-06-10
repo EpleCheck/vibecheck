@@ -73,6 +73,42 @@ const richtext = z.object({
   html: z.string(),
 });
 
+const faq = z.object({
+  type: z.literal('faq'),
+  heading: z.string().optional(),
+  items: z
+    .array(
+      z.object({
+        question: z.string(),
+        // Plain text, not HTML — the renderer emits it as both visible copy and
+        // FAQPage JSON-LD, so it must stay markup-free to be safe in both.
+        answer: z.string(),
+      }),
+    )
+    .default([]),
+});
+
+const testimonials = z.object({
+  type: z.literal('testimonials'),
+  heading: z.string().optional(),
+  // Optional name of what's being reviewed (e.g. "VibeCheck"). When set, each
+  // Review JSON-LD gets an `itemReviewed`, which is what makes the review
+  // meaningful to search engines rather than a free-floating quote.
+  subject: z.string().optional(),
+  items: z
+    .array(
+      z.object({
+        // Plain text — emitted as both visible copy and Review JSON-LD.
+        quote: z.string(),
+        author: z.string(),
+        role: z.string().optional(),
+        rating: z.number().int().min(1).max(5).optional(),
+        image: z.string().optional(),
+      }),
+    )
+    .default([]),
+});
+
 const form = z.object({
   type: z.literal('form'),
   heading: z.string(),
@@ -100,6 +136,8 @@ export const sectionSchema = z.discriminatedUnion('type', [
   pricing,
   cta,
   richtext,
+  faq,
+  testimonials,
   form,
 ]);
 
