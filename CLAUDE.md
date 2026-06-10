@@ -35,7 +35,7 @@ npm run dev -w site    # local preview at http://localhost:4321
 
 Pages are YAML in `apps/site/src/content/pages/**/*.yaml`. A page is a `title` plus a
 list of typed `sections`:
-`hero | features | pricing | cta | richtext | faq | testimonials | form`.
+`hero | features | pricing | cta | richtext | faq | testimonials | embed | form`.
 Only `richtext` carries raw HTML.
 
 - Add/edit a page → edit the YAML directly. `home.yaml` is the front page.
@@ -55,6 +55,10 @@ break the build, so prefer a typed section whenever one fits:
   what it's reviewing. Don't fake quotes with `features` or `richtext`.
 - **Feature/service grid, team** → `features` (title + body, optional image/href).
   Don't hand-write card markup in `richtext`.
+- **Video (YouTube/Vimeo)** → use the `embed` section (`about.yaml` is the worked
+  example). It builds the iframe from an allowlisted provider + bare id, so a raw
+  `<iframe>` in `richtext` is never needed (and is the kind of HTML that can break
+  the build).
 - **Plans/tiers** → `pricing`. **Lead-in + button** → `hero` or `cta`.
 
 Only fall back to `richtext` for genuinely freeform prose that no typed section models.

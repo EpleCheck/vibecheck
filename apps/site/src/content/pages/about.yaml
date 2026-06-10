@@ -23,6 +23,13 @@ sections:
       richtext, form. Only richtext carries raw HTML, so machine-generated
       content can't break the build.</p>
 
+  - type: embed
+    heading: See it in action
+    provider: youtube
+    id: aqz-KE-bpKQ
+    title: VibeCheck demo video
+    caption: A typed embed — content supplies only the video id, never raw iframe HTML.
+
   - type: cta
     heading: See the pricing
     body: Simple, transparent tiers.

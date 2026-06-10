@@ -109,6 +109,21 @@ const testimonials = z.object({
     .default([]),
 });
 
+const embed = z.object({
+  type: z.literal('embed'),
+  // Allowlisted providers only — the renderer builds the iframe src from a fixed
+  // per-provider template, so content supplies an id, never a URL. This is the
+  // whole point: a typed embed can't inject an arbitrary iframe like raw HTML can.
+  provider: z.enum(['youtube', 'vimeo']),
+  // The bare id, not a URL. Constrained to id-safe characters so it can't smuggle
+  // a path, query, or host into the src template (e.g. "../" or "evil.com?").
+  id: z.string().regex(/^[A-Za-z0-9_-]+$/, 'Embed id must be a bare video id, not a URL.'),
+  // Required: iframes need an accessible name.
+  title: z.string(),
+  heading: z.string().optional(),
+  caption: z.string().optional(),
+});
+
 const form = z.object({
   type: z.literal('form'),
   heading: z.string(),
@@ -138,6 +153,7 @@ export const sectionSchema = z.discriminatedUnion('type', [
   richtext,
   faq,
   testimonials,
+  embed,
   form,
 ]);
 
