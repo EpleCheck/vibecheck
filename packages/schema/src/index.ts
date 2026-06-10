@@ -88,6 +88,27 @@ const faq = z.object({
     .default([]),
 });
 
+const testimonials = z.object({
+  type: z.literal('testimonials'),
+  heading: z.string().optional(),
+  // Optional name of what's being reviewed (e.g. "VibeCheck"). When set, each
+  // Review JSON-LD gets an `itemReviewed`, which is what makes the review
+  // meaningful to search engines rather than a free-floating quote.
+  subject: z.string().optional(),
+  items: z
+    .array(
+      z.object({
+        // Plain text — emitted as both visible copy and Review JSON-LD.
+        quote: z.string(),
+        author: z.string(),
+        role: z.string().optional(),
+        rating: z.number().int().min(1).max(5).optional(),
+        image: z.string().optional(),
+      }),
+    )
+    .default([]),
+});
+
 const form = z.object({
   type: z.literal('form'),
   heading: z.string(),
@@ -116,6 +137,7 @@ export const sectionSchema = z.discriminatedUnion('type', [
   cta,
   richtext,
   faq,
+  testimonials,
   form,
 ]);
 

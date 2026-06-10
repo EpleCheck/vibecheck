@@ -100,6 +100,46 @@ const { sections } = Astro.props;
       </section>
     );
   }
+  if (s.type === 'testimonials') {
+    // Visible quote cards + Review JSON-LD for search. Quote/author are plain
+    // text (schema-enforced), so the JSON-LD stringify is safe. `itemReviewed`
+    // is only emitted when the section names a `subject` — a Review of nothing
+    // isn't meaningful, so we omit the relation rather than fake it.
+    const reviews = s.items.map((it: any) => ({
+      '@context': 'https://schema.org',
+      '@type': 'Review',
+      reviewBody: it.quote,
+      author: { '@type': 'Person', name: it.author },
+      ...(it.rating
+        ? { reviewRating: { '@type': 'Rating', ratingValue: it.rating, bestRating: 5 } }
+        : {}),
+      ...(s.subject ? { itemReviewed: { '@type': 'Thing', name: s.subject } } : {}),
+    }));
+    return (
+      <section class="sec testimonials">
+        {s.heading && <h2>{s.heading}</h2>}
+        <div class="grid">
+          {s.items.map((it: any) => (
+            <figure class="testimonial">
+              {it.rating && (
+                <div class="stars" aria-label={`${it.rating} out of 5`}>
+                  {'★'.repeat(it.rating)}{'☆'.repeat(5 - it.rating)}
+                </div>
+              )}
+              <blockquote>{it.quote}</blockquote>
+              <figcaption>
+                {it.image && <img src={withBase(it.image)} alt="" width="40" height="40" />}
+                <span><strong>{it.author}</strong>{it.role && <span class="role">{it.role}</span>}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        {reviews.map((r) => (
+          <script type="application/ld+json" set:html={JSON.stringify(r)} />
+        ))}
+      </section>
+    );
+  }
   if (s.type === 'form') {
     return (
       <section class="sec form">
@@ -156,6 +196,17 @@ const { sections } = Astro.props;
   .faq .faq-item summary::after { content: '+'; float: right; color: var(--text-muted); }
   .faq .faq-item[open] summary::after { content: '–'; }
   .faq .faq-item p { margin: var(--space-2) 0 0; color: var(--text-muted); }
+  .testimonial {
+    margin: 0; padding: var(--space-5);
+    border: var(--border-hairline) solid var(--border-default);
+    border-radius: var(--radius-sm); background: var(--surface-card);
+    display: grid; gap: var(--space-3); align-content: start;
+  }
+  .testimonial .stars { color: var(--border-brand); letter-spacing: 0.1em; }
+  .testimonial blockquote { margin: 0; font-size: var(--type-lead-size); }
+  .testimonial figcaption { display: flex; align-items: center; gap: var(--space-3); }
+  .testimonial figcaption img { border-radius: 50%; object-fit: cover; }
+  .testimonial figcaption .role { display: block; color: var(--text-muted); font-size: var(--text-sm); }
   .form form { display: grid; gap: var(--space-4); max-width: 32rem; }
   .form .field { display: grid; gap: var(--space-1); }
   .form .field span { font-weight: var(--weight-semibold); font-size: var(--text-sm); }

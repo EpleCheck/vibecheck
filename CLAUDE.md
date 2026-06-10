@@ -34,7 +34,8 @@ npm run dev -w site    # local preview at http://localhost:4321
 ## Editing content (the main task)
 
 Pages are YAML in `apps/site/src/content/pages/**/*.yaml`. A page is a `title` plus a
-list of typed `sections`: `hero | features | pricing | cta | richtext | faq | form`.
+list of typed `sections`:
+`hero | features | pricing | cta | richtext | faq | testimonials | form`.
 Only `richtext` carries raw HTML.
 
 - Add/edit a page → edit the YAML directly. `home.yaml` is the front page.
@@ -49,8 +50,11 @@ break the build, so prefer a typed section whenever one fits:
 
 - **FAQ** → use the `faq` section (`faq.yaml` is the worked example). It emits
   `FAQPage` JSON-LD for SEO; faking one with `features` or `richtext` does not.
-- **Feature/service grid, testimonials, team** → `features` (title + body, optional
-  image/href). Don't hand-write card markup in `richtext`.
+- **Testimonials/reviews** → use the `testimonials` section (`home.yaml` is the
+  worked example). It emits `Review` JSON-LD; set `subject` so each review names
+  what it's reviewing. Don't fake quotes with `features` or `richtext`.
+- **Feature/service grid, team** → `features` (title + body, optional image/href).
+  Don't hand-write card markup in `richtext`.
 - **Plans/tiers** → `pricing`. **Lead-in + button** → `hero` or `cta`.
 
 Only fall back to `richtext` for genuinely freeform prose that no typed section models.

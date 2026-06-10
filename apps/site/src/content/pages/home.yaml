@@ -32,6 +32,29 @@ sections:
           Push to GitHub, ship to Vercel. Static output, fast everywhere, no
           server to babysit.
 
+  - type: testimonials
+    heading: What people are saying
+    subject: VibeCheck
+    items:
+      - quote: >-
+          I described the page I wanted in a sentence and it shipped a clean,
+          structured version minutes later. No broken layouts, ever.
+        author: Sara Lindqvist
+        role: Founder, Nordlys Studio
+        rating: 5
+      - quote: >-
+          The schema guardrails mean I let the agent edit production copy
+          without holding my breath. A bad edit just fails the build.
+        author: Tom Whitfield
+        role: Engineering lead
+        rating: 5
+      - quote: >-
+          Every change is a normal git commit, so review and rollback are
+          exactly the workflow we already trust.
+        author: Priya Nair
+        role: Technical writer
+        rating: 4
+
   - type: cta
     heading: Ship your site by chatting
     body: Use the template, connect Claude, and start editing in plain language.
