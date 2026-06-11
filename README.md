@@ -61,6 +61,38 @@ apps/mcp          @vibecheck/mcp     — the MCP server: lets an agent edit from
 4. **Talk to it:** _"Create an FAQ page"_, _"change the hero headline"_,
    _"unpublish the pricing page"_ → committed → live.
 
+## ✨ Try these prompts
+
+Once the MCP is connected to Claude, paste any of these to the agent. Each one
+commits to the repo and the site rebuilds in ~a minute. Add **"publish directly"**
+so it goes live without opening a PR.
+
+**Build a whole landing page in one shot**
+
+> Create a page at `/launch/` titled "Acme — Launch". Give it a hero
+> ("Ship content by chatting" with a short subheading and a "See pricing" button
+> to /pricing/), a three-card features section (Fast, Schema-safe, Git-native),
+> a three-tier pricing section (Starter / Pro / Scale), and a closing
+> call-to-action. Then add the page to the nav menu. Publish directly.
+
+**Add an SEO-friendly FAQ** — emits real `FAQPage` JSON-LD, not faked markup
+
+> Add an FAQ page answering five common questions about VibeCheck, and put it in
+> the nav menu. Publish directly.
+
+**Drop in social proof** — emits `Review` JSON-LD
+
+> Add a testimonials section to the home page with three five-star reviews of
+> VibeCheck. Publish directly.
+
+**Rearrange the menu**
+
+> Reorder the nav so Pricing comes right after Home, and remove the FAQ link.
+> Publish directly.
+
+Every one of these is typed data under the hood — the agent **can't** emit markup
+that breaks the build.
+
 ## Content model
 
 A page is a YAML file in `apps/site/src/content/pages/**/*.yaml` — a `title` and
