@@ -10,7 +10,9 @@ chatting with an AI agent.
 chatting with an AI agent, wired to a live MCP server. You bring the *vibe* — a
 sentence to the agent — it does the *check*: validates against a schema, commits to
 the repo, and the site redeploys. Content is typed data, not markup, so an agent
-**can't break the build**.
+**can't break the build**. It runs from the
+**[vibecheck-demo](https://github.com/EpleCheck/vibecheck-demo)** repo — head there
+to connect to its MCP and edit the live site yourself.
 
 > **Note:** the demo's live editing runs through a GitHub token that expires around
 > **September 2026**. If you try the demo after that and your edits don't go live,
