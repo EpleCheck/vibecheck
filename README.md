@@ -6,10 +6,16 @@
 **The CMS you talk to.** A git-backed, schema-safe, headless CMS you edit by
 chatting with an AI agent.
 
-🔗 **[Live demo](https://eplecheck.github.io/vibecheck/)** — itself built with VibeCheck. You bring the *vibe* — a sentence to the agent — it
-does the *check*: validates against a schema, commits to your repo, and your host
-redeploys. Content is typed data, not markup, so an agent **can't break the
-build**.
+🔗 **[Live demo →](https://vibecheck.eplecheck.no)** — a real site you can edit by
+chatting with an AI agent, wired to a live MCP server. You bring the *vibe* — a
+sentence to the agent — it does the *check*: validates against a schema, commits to
+the repo, and the site redeploys. Content is typed data, not markup, so an agent
+**can't break the build**.
+
+> **Note:** the demo's live editing runs through a GitHub token that expires around
+> **September 2026**. If you try the demo after that and your edits don't go live,
+> please [open an issue](https://github.com/EpleCheck/vibecheck/issues) and we'll
+> rotate it.
 
 > _Part of the EpleCheck family._ Built with Astro + the Model Context Protocol.
 
