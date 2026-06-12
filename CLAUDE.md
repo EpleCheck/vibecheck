@@ -35,7 +35,8 @@ npm run dev -w site    # local preview at http://localhost:4321
 
 Pages are YAML in `apps/site/src/content/pages/**/*.yaml`. A page is a `title` plus a
 list of typed `sections`:
-`hero | features | pricing | cta | richtext | faq | testimonials | embed | form`.
+`hero | features | pricing | cta | richtext | faq | testimonials | embed | heading |
+image | gallery | divider | spacer | iconlist | form`.
 Only `richtext` carries raw HTML.
 
 - Add/edit a page → edit the YAML directly. `home.yaml` is the front page.
@@ -60,6 +61,12 @@ break the build, so prefer a typed section whenever one fits:
   `<iframe>` in `richtext` is never needed (and is the kind of HTML that can break
   the build).
 - **Plans/tiers** → `pricing`. **Lead-in + button** → `hero` or `cta`.
+- **A single image** → use the `image` section (required `alt`, optional caption/link),
+  not an `<img>` in `richtext`. **Several images** → `gallery` (`grid` or `carousel`).
+  `components.yaml` is the worked example for both.
+- **A section heading on its own** → `heading` (h2/h3). **A checklist / feature ticks**
+  → `iconlist` (allowlisted icon names, never raw SVG). **A rule / vertical gap** →
+  `divider` / `spacer`. All shown in `components.yaml`.
 
 Only fall back to `richtext` for genuinely freeform prose that no typed section models.
 
