@@ -1,0 +1,67 @@
+title: Content sections
+description: Worked examples of VibeCheck's typed core sections — heading, image, gallery, divider, spacer, and icon list.
+sections:
+  - type: hero
+    heading: Core content sections
+    subheading: >-
+      A tour of the typed building blocks — each is data, not markup, so an AI
+      agent can compose a page without ever writing HTML that could break the build.
+
+  # heading — a standalone section heading (the page <h1> is the hero above).
+  - type: heading
+    heading: A standalone heading
+    subheading: With an optional sub-line, left- or centre-aligned.
+    level: h2
+    align: left
+
+  # iconlist — checklist / feature ticks with an allowlisted inline-SVG icon.
+  - type: iconlist
+    heading: Why typed sections
+    items:
+      - text: Machine-generated content can't inject stray HTML
+        icon: check
+      - text: Every image carries required alt text
+        icon: check
+      - text: Pick an icon from an allowlist, never raw SVG
+        icon: star
+      - text: Learn more about the schema
+        icon: arrow
+        href: /about/
+
+  - type: divider
+    style: solid
+
+  # image — a single typed image: alt is required, src is just a path.
+  - type: image
+    src: /demo/tile-1.svg
+    alt: A magenta-to-violet gradient placeholder tile
+    caption: A single image section — alt text is schema-required, so it's always accessible.
+    width: 400
+    height: 300
+
+  - type: spacer
+    size: lg
+
+  # gallery — responsive grid (switch layout to "carousel" for a scroll strip).
+  - type: gallery
+    heading: A gallery
+    layout: grid
+    items:
+      - src: /demo/tile-1.svg
+        alt: Magenta-to-violet gradient tile numbered 01
+        caption: Tile 01
+      - src: /demo/tile-2.svg
+        alt: Blue gradient tile numbered 02
+        caption: Tile 02
+      - src: /demo/tile-3.svg
+        alt: Green gradient tile numbered 03
+        caption: Tile 03
+
+  - type: divider
+    style: dashed
+
+  - type: cta
+    heading: See how it works
+    body: These sections are defined once in the schema and rendered by a fixed template.
+    ctaLabel: About VibeCheck
+    ctaHref: /about/
